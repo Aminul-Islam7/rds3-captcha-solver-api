@@ -2,9 +2,6 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // Get the origin from the request
-  const origin = request.headers.get('origin') || '*';
-  
   // Handle OPTIONS method for preflight requests
   if (request.method === 'OPTIONS') {
     return new NextResponse(null, {

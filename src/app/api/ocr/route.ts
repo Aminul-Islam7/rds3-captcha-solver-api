@@ -6,7 +6,7 @@ function corsHeaders() {
 	return {
 		'Access-Control-Allow-Origin': '*', // Allow requests from any origin
 		'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-		'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+		'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',
 		'Access-Control-Max-Age': '86400', // 24 hours
 	};
 }

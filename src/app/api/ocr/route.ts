@@ -3,16 +3,17 @@ import * as Tesseract from 'tesseract.js';
 
 // Helper function to enable CORS
 function corsHeaders() {
-  return {
-    'Access-Control-Allow-Origin': '*', // Allow requests from any origin
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  };
+	return {
+		'Access-Control-Allow-Origin': '*', // Allow requests from any origin
+		'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+		'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+		'Access-Control-Max-Age': '86400', // 24 hours
+	};
 }
 
 export async function POST(request: NextRequest) {
-  // Add CORS headers to the response
-  const headers = corsHeaders();
+	// Add CORS headers to the response
+	const headers = corsHeaders();
 	try {
 		const body = await request.json();
 		const { imageData } = body;
@@ -50,7 +51,8 @@ export async function POST(request: NextRequest) {
 		let errorMessage = 'An unexpected error occurred during OCR processing.';
 		if (error instanceof Error) {
 			errorMessage = error.message;
-		}		return NextResponse.json({ success: false, error: errorMessage }, { status: 500, headers });
+		}
+		return NextResponse.json({ success: false, error: errorMessage }, { status: 500, headers });
 	}
 }
 
@@ -60,19 +62,19 @@ export async function GET() {
 }
 
 export async function PUT() {
-	return NextResponse.json({ success: false, error: 'Method Not Allowed' }, { status: 405 });
+	return NextResponse.json({ success: false, error: 'Method Not Allowed' }, { status: 405, headers: corsHeaders() });
 }
 
 export async function DELETE() {
-	return NextResponse.json({ success: false, error: 'Method Not Allowed' }, { status: 405 });
+	return NextResponse.json({ success: false, error: 'Method Not Allowed' }, { status: 405, headers: corsHeaders() });
 }
 
 export async function PATCH() {
-	return NextResponse.json({ success: false, error: 'Method Not Allowed' }, { status: 405 });
+	return NextResponse.json({ success: false, error: 'Method Not Allowed' }, { status: 405, headers: corsHeaders() });
 }
 
 export async function HEAD() {
-	return NextResponse.json({ success: false, error: 'Method Not Allowed' }, { status: 405 });
+	return NextResponse.json({ success: false, error: 'Method Not Allowed' }, { status: 405, headers: corsHeaders() });
 }
 
 export async function OPTIONS() {
